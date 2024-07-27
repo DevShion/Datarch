@@ -12,20 +12,20 @@ export default class Collection<T extends { [x: string]: any }> {
   Model: Types.Helper.UDFModel<T>;
 
   static Schemas = {
-    auth: Functions.zod.TypedZodSchema<
+    auth: Functions.Zod.TypedZodSchema<
       Types.Request.Auth["auth"]
     >()(z.strictObject({
       id: z.string(),
       password: z.string(),
     })),
-    convex: Functions.zod.TypedZodSchema<
+    convex: Functions.Zod.TypedZodSchema<
       Types.Request.Convex["convex"]
     >()(z.strictObject({
       convex: z.string(),
       requestedTime: z.number(),
     })),
     // deno-lint-ignore no-explicit-any
-    findQuery: Functions.zod.TypedZodSchema<Types.Method.FindType<any>["Req"]["query"]>()(
+    findQuery: Functions.Zod.TypedZodSchema<Types.Method.FindType<any>["Req"]["query"]>()(
       z.strictObject({
         filter: z.object({}), // FilterQuery<T>,
         select: z.array(z.string()).optional(), // (keyof T)[],?
@@ -98,7 +98,7 @@ export default class Collection<T extends { [x: string]: any }> {
   }) {
     this.Model = args.model;
     this.Find = new Method({
-      reqSchema: Functions.zod.TypedZodSchema<
+      reqSchema: Functions.Zod.TypedZodSchema<
         Omit<Types.Method.FindType<T>["Req"], "query">
       >()(z.strictObject({
         auth: Collection.Schemas.auth,
@@ -216,7 +216,7 @@ export default class Collection<T extends { [x: string]: any }> {
           return (body.query.limit ? docs.slice(0, body.query.limit) : docs);
         })();
         const data: T[] = docs.map((doc) => {
-          const obj = Functions.mongoose.HDToObject(doc);
+          const obj = Functions.Mongoose.HDToObject(doc);
           return obj;
         });
         res.data = data;
@@ -226,7 +226,7 @@ export default class Collection<T extends { [x: string]: any }> {
       post: args.find.post,
     });
     this.Create = new Method({
-      reqSchema: Functions.zod.TypedZodSchema<Omit<Types.Method.CreateType<T>["Req"], "data">>()(z.strictObject({
+      reqSchema: Functions.Zod.TypedZodSchema<Omit<Types.Method.CreateType<T>["Req"], "data">>()(z.strictObject({
         auth: Collection.Schemas.auth,
         data: args.objectSchema,
       })),
@@ -237,7 +237,7 @@ export default class Collection<T extends { [x: string]: any }> {
         const res: Types.Method.CreateType<T>["Res"] = {
           data: null as unknown as T,
         };
-        const data: T = Functions.mongoose.HDToObject(
+        const data: T = Functions.Mongoose.HDToObject(
           await this.Model.create(body.data),
         );
         res.data = data;
@@ -246,7 +246,7 @@ export default class Collection<T extends { [x: string]: any }> {
       post: args.create.post,
     });
     this.Update = new Method({
-      reqSchema: Functions.zod.TypedZodSchema<
+      reqSchema: Functions.Zod.TypedZodSchema<
         Omit<Types.Method.UpdateType<T>["Req"], "query" | "data">
       >()(z.strictObject({
         auth: Collection.Schemas.auth,
@@ -270,7 +270,7 @@ export default class Collection<T extends { [x: string]: any }> {
       post: args.update.post,
     });
     this.Delete = new Method({
-      reqSchema: Functions.zod.TypedZodSchema<
+      reqSchema: Functions.Zod.TypedZodSchema<
         Omit<Types.Method.DeleteType<T>["Req"], "query">
       >()(z.strictObject({
         auth: Collection.Schemas.auth,

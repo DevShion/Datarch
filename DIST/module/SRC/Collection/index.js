@@ -35,16 +35,16 @@ const Method_1 = __importDefault(require("../Method"));
 class Collection {
     Model;
     static Schemas = {
-        auth: Functions.zod.TypedZodSchema()(zod_1.z.strictObject({
+        auth: Functions.Zod.TypedZodSchema()(zod_1.z.strictObject({
             id: zod_1.z.string(),
             password: zod_1.z.string(),
         })),
-        convex: Functions.zod.TypedZodSchema()(zod_1.z.strictObject({
+        convex: Functions.Zod.TypedZodSchema()(zod_1.z.strictObject({
             convex: zod_1.z.string(),
             requestedTime: zod_1.z.number(),
         })),
         // deno-lint-ignore no-explicit-any
-        findQuery: Functions.zod.TypedZodSchema()(zod_1.z.strictObject({
+        findQuery: Functions.Zod.TypedZodSchema()(zod_1.z.strictObject({
             filter: zod_1.z.object({}), // FilterQuery<T>,
             select: zod_1.z.array(zod_1.z.string()).optional(), // (keyof T)[],?
             sort: zod_1.z.array(zod_1.z.strictObject({
@@ -72,7 +72,7 @@ class Collection {
     constructor(args) {
         this.Model = args.model;
         this.Find = new Method_1.default({
-            reqSchema: Functions.zod.TypedZodSchema()(zod_1.z.strictObject({
+            reqSchema: Functions.Zod.TypedZodSchema()(zod_1.z.strictObject({
                 auth: Collection.Schemas.auth,
                 query: Collection.Schemas.findQuery,
             })),
@@ -193,7 +193,7 @@ class Collection {
                     return (body.query.limit ? docs.slice(0, body.query.limit) : docs);
                 })();
                 const data = docs.map((doc) => {
-                    const obj = Functions.mongoose.HDToObject(doc);
+                    const obj = Functions.Mongoose.HDToObject(doc);
                     return obj;
                 });
                 res.data = data;
@@ -203,7 +203,7 @@ class Collection {
             post: args.find.post,
         });
         this.Create = new Method_1.default({
-            reqSchema: Functions.zod.TypedZodSchema()(zod_1.z.strictObject({
+            reqSchema: Functions.Zod.TypedZodSchema()(zod_1.z.strictObject({
                 auth: Collection.Schemas.auth,
                 data: args.objectSchema,
             })),
@@ -212,14 +212,14 @@ class Collection {
                 const res = {
                     data: null,
                 };
-                const data = Functions.mongoose.HDToObject(await this.Model.create(body.data));
+                const data = Functions.Mongoose.HDToObject(await this.Model.create(body.data));
                 res.data = data;
                 return res;
             },
             post: args.create.post,
         });
         this.Update = new Method_1.default({
-            reqSchema: Functions.zod.TypedZodSchema()(zod_1.z.strictObject({
+            reqSchema: Functions.Zod.TypedZodSchema()(zod_1.z.strictObject({
                 auth: Collection.Schemas.auth,
                 query: Collection.Schemas.findQuery,
                 data: args.objectSchema,
@@ -236,7 +236,7 @@ class Collection {
             post: args.update.post,
         });
         this.Delete = new Method_1.default({
-            reqSchema: Functions.zod.TypedZodSchema()(zod_1.z.strictObject({
+            reqSchema: Functions.Zod.TypedZodSchema()(zod_1.z.strictObject({
                 auth: Collection.Schemas.auth,
                 query: Collection.Schemas.findQuery,
             })),
