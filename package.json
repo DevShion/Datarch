@@ -1,6 +1,6 @@
 {
     "name": "@devshion/datarch",
-    "version": "1.0.6",
+    "version": "1.0.7",
     "type": "module",
     "main": "./main/index.js",
     "types": "./index.ts",

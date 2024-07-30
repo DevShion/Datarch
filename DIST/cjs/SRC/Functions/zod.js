@@ -1,6 +1,11 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.TypedZodSchema = void 0;
+exports.ParseCast = exports.TypedSchema = void 0;
 // deno-lint-ignore no-explicit-any
-const TypedZodSchema = () => (arg) => { return arg; };
-exports.TypedZodSchema = TypedZodSchema;
+const TypedSchema = () => (arg) => { return arg; };
+exports.TypedSchema = TypedSchema;
+const ParseCast = (schema, value) => {
+    schema.parse(value);
+    return value;
+};
+exports.ParseCast = ParseCast;
