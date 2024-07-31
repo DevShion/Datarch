@@ -44,11 +44,11 @@ export class Client<
   //     })();
   // };
 
-  GET_AUTH_INFO_FROM_AS: () => Promise<Types.Request.Auth["auth"]>;
-
-  constructor(GET_AUTH_INFO_FROM_AS: typeof this.GET_AUTH_INFO_FROM_AS) {
+  constructor(GET_AUTH_INFO_FROM_AS: () => Promise<Types.Request.Auth["auth"]>) {
     this.GET_AUTH_INFO_FROM_AS = GET_AUTH_INFO_FROM_AS;
   }
+
+  GET_AUTH_INFO_FROM_AS: () => Promise<Types.Request.Auth["auth"]>;
 
   Auth = async (): Promise<Types.Request.Auth> => {
     const auth = await this.GET_AUTH_INFO_FROM_AS();

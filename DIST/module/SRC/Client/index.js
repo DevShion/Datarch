@@ -36,10 +36,10 @@ class Client {
     //         return [lastUsedUser.id, lastUsedUser.password];
     //     })();
     // };
-    GET_AUTH_INFO_FROM_AS;
     constructor(GET_AUTH_INFO_FROM_AS) {
         this.GET_AUTH_INFO_FROM_AS = GET_AUTH_INFO_FROM_AS;
     }
+    GET_AUTH_INFO_FROM_AS;
     Auth = async () => {
         const auth = await this.GET_AUTH_INFO_FROM_AS();
         return { auth };
