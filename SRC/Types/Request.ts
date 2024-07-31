@@ -1,7 +1,7 @@
 import Collection from "../Collection/index";
 
 export type CollectionRequestBody<
-  APICOLLECTIONS extends { [key in string]: Collection<{ [x: string]: any }> },
+  APICOLLECTIONS extends { [key in string]: Collection<{ [key in string]: any }> },
   COLLECTION extends (keyof APICOLLECTIONS),
   METHOD extends "Find" | "Create" | "Update" | "Delete",
 > = {
@@ -21,7 +21,7 @@ export type FunctionRequestBody<
 };
 
 export type APIRequestBody<
-  APICOLLECTIONS extends { [key in string]: Collection<{ [x: string]: any }> },
+  APICOLLECTIONS extends { [key in string]: Collection<{ [key in string]: any }> },
   APIFUNCTIONS extends { [key in string]: (...args: any) => any },
 > =
   | CollectionRequestBody<

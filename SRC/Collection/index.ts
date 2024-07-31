@@ -8,7 +8,8 @@ import * as Functions from "../Functions";
 import Method from "../Method";
 
 // deno-lint-ignore no-explicit-any
-export default class Collection<T extends { [x: string]: any }> {
+// export default class Collection<T extends { [x: string]: any }> {
+export default class Collection<T extends { [key in string]: any }> {
   Model: Types.Helper.UDFModel<T>;
 
   static Schemas = {

@@ -2,7 +2,7 @@ import Collection from "../Collection/index";
 import * as Types from "./";
 
 export type APIResponse<
-  APICOLLECTIONS extends { [key in string]: Collection<{ [x: string]: any }> },
+  APICOLLECTIONS extends { [key in string]: Collection<{ [key in string]: any }> },
   APIFUNCTIONS extends { [key in string]: (...args: any) => any },
 > =
   | Awaited<

@@ -22,7 +22,7 @@ class FormDataWithFIle extends FormData {
 
 export class Client<
   APICOLLECTIONS extends {
-    [key in string]: Collection<{ [x: string]: any }>;
+    [key in string]: Collection<{ [key in string]: any }>;
   },
   APIFUNCTIONS extends { [key in string]: (...args: any) => any },
 > {

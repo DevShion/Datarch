@@ -32,6 +32,7 @@ const lodash_1 = __importDefault(require("lodash"));
 const Functions = __importStar(require("../Functions"));
 const Method_1 = __importDefault(require("../Method"));
 // deno-lint-ignore no-explicit-any
+// export default class Collection<T extends { [x: string]: any }> {
 class Collection {
     Model;
     static Schemas = {
